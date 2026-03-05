@@ -1,481 +1,1696 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Aresei — Proposal for Destination Madrid</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aresei — Digital Craftsmanship for the Modern Era</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --night:#0d0c0a;--night2:#141210;--night3:#1c1a16;
-  --gold:#c9a84c;--gold2:#e8c97a;--gold-faint:rgba(201,168,76,.1);
-  --cream:#f5f0e8;--muted:#8a8070;
-  --border:rgba(201,168,76,.14);
-  --serif:'Playfair Display',Georgia,serif;
-  --sans:'Jost',sans-serif;
+:root {
+  --black: #050508;
+  --deep: #0A0A10;
+  --panel: #0F0F18;
+  --accent: #5B6EF5;
+  --accent2: #8B9BFF;
+  --gold: #D4A853;
+  --cream: #F0EDE8;
+  --muted: rgba(240,237,232,0.5);
+  --border: rgba(255,255,255,0.07);
+  --glow: rgba(91,110,245,0.15);
 }
-html{scroll-behavior:smooth}
-body{background:var(--night);color:var(--cream);font-family:var(--sans);font-weight:300;overflow-x:hidden;cursor:none}
-body::after{content:'';position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.022;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:200px;}
 
-.cd{position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-.cr{position:fixed;width:30px;height:30px;border:1px solid rgba(201,168,76,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
-.cr.x{width:52px;height:52px;border-color:rgba(201,168,76,.18)}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--black);
+  color: var(--cream);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--accent); }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 0;
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 60px;
+  height: 64px;
+  background: rgba(5,5,8,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--cream); }
+
+.nav-cta {
+  padding: 9px 24px;
+  background: var(--accent);
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.3s;
+  border-radius: 2px;
+}
+
+.nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 60px 80px;
+}
+
+.hero-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(91,110,245,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(91,110,245,0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridShift 20s linear infinite;
+}
+
+@keyframes gridShift {
+  from { background-position: 0 0; }
+  to { background-position: 60px 60px; }
+}
+
+.hero-glow {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(91,110,245,0.12) 0%, transparent 70%);
+  top: -200px;
+  right: -100px;
+  pointer-events: none;
+  animation: glowPulse 6s ease-in-out infinite;
+}
+
+.hero-glow2 {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 70%);
+  bottom: 0;
+  left: 200px;
+  pointer-events: none;
+  animation: glowPulse 8s ease-in-out infinite reverse;
+}
+
+@keyframes glowPulse {
+  0%,100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(91,110,245,0.1);
+  border: 1px solid rgba(91,110,245,0.25);
+  border-radius: 100px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 32px;
+  animation: fadeUp 0.8s 0.1s both;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 2s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero-headline {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+  margin-bottom: 12px;
+  animation: fadeUp 0.8s 0.2s both;
+}
+
+.hero-headline .accent { color: var(--accent); }
+.hero-headline .italic { font-family: 'Instrument Serif', serif; font-weight: 400; font-style: italic; color: rgba(240,237,232,0.6); }
+
+.hero-sub {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(22px, 3vw, 36px);
+  font-style: italic;
+  color: rgba(240,237,232,0.45);
+  margin-bottom: 40px;
+  animation: fadeUp 0.8s 0.35s both;
+}
+
+.hero-pitch-box {
+  background: rgba(15,15,24,0.8);
+  border: 1px solid rgba(91,110,245,0.2);
+  border-left: 3px solid var(--accent);
+  padding: 36px 48px;
+  max-width: 860px;
+  margin-bottom: 48px;
+  position: relative;
+  animation: fadeUp 0.8s 0.5s both;
+  backdrop-filter: blur(10px);
+}
+
+.hero-pitch-box::before {
+  content: '"';
+  position: absolute;
+  top: -20px; left: 40px;
+  font-family: 'Instrument Serif', serif;
+  font-size: 80px;
+  color: var(--accent);
+  opacity: 0.3;
+  line-height: 1;
+}
+
+.hero-pitch-text {
+  font-size: 17px;
+  line-height: 2.0;
+  color: rgba(240,237,232,0.85);
+  font-weight: 300;
+}
+
+.hero-pitch-text strong {
+  color: var(--cream);
+  font-weight: 500;
+}
+
+.hero-pitch-text .highlight {
+  color: var(--accent2);
+  font-weight: 500;
+}
+
+.hero-pitch-text .gold { color: var(--gold); font-weight: 500; }
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.65s both;
+}
+
+.btn-primary {
+  padding: 16px 44px;
+  background: var(--accent);
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.12);
+  transform: translateX(-100%);
+  transition: transform 0.4s;
+}
+
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(91,110,245,0.4); }
+
+.btn-ghost {
+  padding: 16px 44px;
+  background: transparent;
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(240,237,232,0.2);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.rd1 { transition-delay: 0.1s; }
+.rd2 { transition-delay: 0.2s; }
+.rd3 { transition-delay: 0.3s; }
+.rd4 { transition-delay: 0.4s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+section { padding: 100px 0; position: relative; z-index: 1; }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.sec-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sec-eyebrow::before {
+  content: '';
+  width: 28px; height: 1px;
+  background: var(--accent);
+}
+
+.sec-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.sec-title em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  color: var(--accent2);
+  font-weight: 400;
+}
+
+.sec-body {
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+#why {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.why-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.why-card {
+  padding: 28px 24px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.4s;
+}
+
+.why-card:hover { border-color: rgba(91,110,245,0.25); transform: translateY(-4px); }
+.why-card:hover::before { transform: scaleX(1); }
+
+.why-card-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+
+.why-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.why-card-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.why-visual {
+  position: relative;
+}
+
+.why-screen {
+  background: var(--panel);
+  border: 1px solid rgba(91,110,245,0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(91,110,245,0.1);
+}
+
+.why-screen-bar {
+  background: rgba(91,110,245,0.08);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-r { background: #FF5F57; }
+.dot-y { background: #FEBC2E; }
+.dot-g { background: #28C840; }
+
+.screen-url {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  font-family: monospace;
+}
+
+.why-screen-content {
+  padding: 32px;
+}
+
+.mock-hero-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--cream), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mock-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.08);
+  margin-bottom: 8px;
+}
+
+.mock-bar.accent { background: rgba(91,110,245,0.3); }
+.mock-bar.short { width: 60%; }
+.mock-bar.shorter { width: 40%; }
+
+.mock-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.mock-card-thumb {
+  aspect-ratio: 16/9;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mock-card-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.mock-tag {
+  position: absolute;
+  bottom: 6px; left: 6px;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.why-badge {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  background: var(--accent);
+  color: white;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(91,110,245,0.5);
+  animation: badgeSpin 10s linear infinite;
+}
+
+@keyframes badgeSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.why-badge-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  animation: badgeSpin 10s linear infinite reverse;
+}
+
+#pledge {
+  background: var(--black);
+}
+
+.pledge-wrap {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pledge-number {
+  font-family: 'Syne', sans-serif;
+  font-size: 160px;
+  font-weight: 800;
+  color: rgba(91,110,245,0.06);
+  line-height: 1;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: -0.05em;
+}
+
+.pledge-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.pledge-icon {
+  width: 72px;
+  height: 72px;
+  background: rgba(91,110,245,0.1);
+  border: 1px solid rgba(91,110,245,0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 28px;
+}
+
+.pledge-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+
+.pledge-sub {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--accent2);
+  margin-bottom: 32px;
+}
+
+.pledge-text {
+  font-size: 16px;
+  line-height: 2.0;
+  color: rgba(240,237,232,0.7);
+  font-weight: 300;
+  margin-bottom: 48px;
+}
+
+.pledge-text strong { color: var(--cream); font-weight: 500; }
+.pledge-text .accent-word { color: var(--accent2); font-weight: 500; }
+.pledge-text .gold-word { color: var(--gold); font-weight: 500; }
+
+.pledge-commitments {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+  text-align: left;
+}
+
+.pledge-item {
+  padding: 28px 24px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.pledge-item:hover {
+  border-color: rgba(91,110,245,0.3);
+  transform: translateY(-4px);
+}
+
+.pledge-item-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: rgba(91,110,245,0.1);
+  line-height: 1;
+  position: absolute;
+  top: 10px; right: 16px;
+}
+
+.pledge-item-icon { font-size: 24px; margin-bottom: 12px; display: block; }
+
+.pledge-item-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+
+.pledge-item-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+#services {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 56px;
+}
+
+.service-item {
+  padding: 40px 36px;
+  background: var(--panel);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: background 0.3s;
+}
+
+.service-item:hover { background: rgba(91,110,245,0.05); }
+
+.service-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, var(--accent), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+
+.service-item:hover::after { transform: scaleX(1); }
+
+.service-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.service-icon { font-size: 32px; margin-bottom: 16px; display: block; }
+
+.service-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.service-body {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.75;
+  font-weight: 300;
+}
 
 
-#prog{position:fixed;top:0;left:0;height:1px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:8999}
+#project {
+  background: var(--black);
+  padding: 100px 0 0;
+}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:28px 60px;background:linear-gradient(to bottom,rgba(13,12,10,.92),transparent)}
-.nlogo{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--cream);text-decoration:none}
-.nlogo b{color:var(--gold);font-weight:400}
-.ntag{font-size:9px;font-weight:400;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.project-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.project-showcase {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid rgba(91,110,245,0.15);
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+  margin: 0 60px;
+  box-shadow: 0 -20px 80px rgba(91,110,245,0.08);
+}
+
+.project-browser-bar {
+  background: rgba(15,15,24,0.95);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.project-url {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 4px;
+  padding: 5px 14px;
+  font-size: 12px;
+  color: var(--muted);
+  font-family: monospace;
+  text-align: center;
+}
+
+.project-preview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 420px;
+}
+
+.project-preview-left {
+  background: linear-gradient(135deg, #080C14, #0A0A18);
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-preview-left::before {
+  content: 'MADRID';
+  position: absolute;
+  font-family: 'Syne', sans-serif;
+  font-size: 120px;
+  font-weight: 800;
+  color: rgba(91,110,245,0.04);
+  bottom: -20px;
+  left: -10px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.mock-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.mock-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.mock-links {
+  display: flex;
+  gap: 16px;
+}
+
+.mock-link {
+  width: 28px; height: 4px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+}
+
+.mock-link.active { background: rgba(212,168,83,0.4); }
+
+.mock-title-big {
+  font-family: 'Syne', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  color: var(--cream);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.mock-sub { font-size: 13px; color: rgba(212,168,83,0.7); font-style: italic; margin-bottom: 24px; position: relative; z-index: 1; }
+
+.mock-btn {
+  display: inline-block;
+  padding: 10px 24px;
+  background: var(--gold);
+  color: #0A0A10;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-radius: 1px;
+  width: fit-content;
+  position: relative;
+  z-index: 1;
+}
+
+.project-preview-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.project-thumb {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.75;
+  transition: opacity 0.4s;
+  filter: saturate(0.8);
+}
+
+.project-thumb:hover img { opacity: 1; filter: saturate(1); }
+
+.project-thumb-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 10px 12px;
+  background: linear-gradient(to top, rgba(8,12,20,0.9), transparent);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+#stats {
+  background: rgba(91,110,245,0.06);
+  border-top: 1px solid rgba(91,110,245,0.12);
+  border-bottom: 1px solid rgba(91,110,245,0.12);
+  padding: 60px 0;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  text-align: center;
+}
+
+.stat-item {
+  padding: 24px;
+  border-right: 1px solid rgba(91,110,245,0.12);
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-n {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--accent2);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+
+.stat-l {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+#team {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.team-right {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.team-card {
+  padding: 28px 24px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.team-card:hover { border-color: rgba(91,110,245,0.3); transform: translateY(-4px); }
+
+.team-avatar {
+  width: 56px; height: 56px;
+  background: rgba(91,110,245,0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin: 0 auto 14px;
+  border: 1px solid rgba(91,110,245,0.2);
+}
+
+.team-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+
+.team-role {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.values-list {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.value-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.value-bullet {
+  width: 28px; height: 28px;
+  background: rgba(91,110,245,0.1);
+  border: 1px solid rgba(91,110,245,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.value-text strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 2px;
+}
+
+.value-text span {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 300;
+}
 
 
-#hero{min-height:100vh;display:grid;place-items:center;text-align:center;padding:120px 40px 80px;position:relative;overflow:hidden;
-  background:radial-gradient(ellipse 80% 55% at 50% 38%,#201808 0%,var(--night) 100%)}
-.hlines{position:absolute;inset:0;pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent,transparent 99px,rgba(201,168,76,.025) 100px),
-             repeating-linear-gradient(90deg,transparent,transparent 99px,rgba(201,168,76,.018) 100px)}
-.horb{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;
-  background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 65%);pointer-events:none;
-  animation:pulse 7s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.1)}}
-.hero-inner{position:relative;z-index:1}
-.hkick{display:inline-flex;align-items:center;gap:12px;font-size:9px;font-weight:400;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:44px;animation:up .9s cubic-bezier(.16,1,.3,1) both}
-.hkick-l{width:24px;height:1px;background:var(--gold);opacity:.6}
-.htitle{font-family:var(--serif);font-size:clamp(56px,9.5vw,130px);font-weight:400;line-height:.9;letter-spacing:-.025em;color:var(--cream);margin-bottom:18px;animation:up .9s .1s cubic-bezier(.16,1,.3,1) both}
-.htitle em{font-style:italic;color:var(--gold2);display:block}
-.htitle .out{-webkit-text-stroke:1px rgba(245,240,232,.18);color:transparent}
-.hdiv{width:1px;height:52px;background:linear-gradient(to bottom,var(--gold),transparent);margin:36px auto;animation:up .9s .22s cubic-bezier(.16,1,.3,1) both}
-.hsub{font-size:clamp(14px,1.55vw,16px);line-height:1.9;color:rgba(245,240,232,.42);max-width:500px;margin:0 auto 52px;animation:up .9s .3s cubic-bezier(.16,1,.3,1) both}
-.hbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:up .9s .4s cubic-bezier(.16,1,.3,1) both}
-.bp{background:var(--gold);color:var(--night);padding:15px 38px;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:background .25s,transform .25s,box-shadow .25s;display:inline-block}
-.bp:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 14px 36px rgba(201,168,76,.22)}
-.bg{border:1px solid rgba(201,168,76,.28);color:var(--cream);padding:14px 38px;font-family:var(--sans);font-size:11px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:border-color .25s,transform .25s;display:inline-block}
-.bg:hover{border-color:var(--gold);transform:translateY(-3px)}
-.hscroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;animation:up 1s .7s ease both}
-.hscroll span{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.22)}
-.strk{width:1px;height:44px;background:linear-gradient(to bottom,var(--gold),transparent);overflow:hidden;position:relative}
-.strk::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:100%;background:var(--gold2);animation:sd 2s ease infinite}
-@keyframes sd{to{top:200%}}
+#final-cta {
+  background: var(--black);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#final-cta::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(91,110,245,0.1) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.final-cta-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.final-cta-label {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+.final-cta-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 5.5vw, 68px);
+  font-weight: 800;
+  color: var(--cream);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+
+.final-cta-title em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  color: var(--accent2);
+  font-weight: 400;
+}
+
+.final-cta-sub {
+  font-size: 17px;
+  color: var(--muted);
+  margin-bottom: 48px;
+  font-weight: 300;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.final-cta-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.contact-strip {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact-item-icon {
+  width: 36px; height: 36px;
+  background: rgba(91,110,245,0.1);
+  border: 1px solid rgba(91,110,245,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.contact-item-info strong {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+  font-weight: 400;
+}
+
+.contact-item-info span { font-size: 14px; color: var(--cream); }
+
+footer {
+  background: #020205;
+  padding: 28px 60px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--cream);
+}
+
+.footer-logo span { color: var(--accent); }
+
+.footer-copy {
+  font-size: 12px;
+  color: rgba(240,237,232,0.25);
+  letter-spacing: 0.05em;
+}
 
 
-.sec{padding:120px 0;border-top:1px solid var(--border)}
-.si{max-width:1160px;margin:0 auto;padding:0 60px}
-.ey{display:flex;align-items:center;gap:12px;font-size:9px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
-.ey::before{content:'';width:22px;height:1px;background:var(--gold);opacity:.65}
-h2.dp{font-family:var(--serif);font-size:clamp(38px,5.5vw,72px);font-weight:400;line-height:.98;letter-spacing:-.025em;color:var(--cream);margin-bottom:26px}
-h2.dp em{font-style:italic;color:var(--gold2)}
-.ld{font-size:clamp(14px,1.4vw,15px);line-height:1.9;color:rgba(245,240,232,.4);font-weight:300;max-width:540px}
+@media (max-width: 1024px) {
+  .container { padding: 0 32px; }
+  nav { padding: 0 32px; }
+  .hero-pitch-box { padding: 28px 32px; }
+  .why-grid { grid-template-columns: 1fr; }
+  .why-visual { display: none; }
+  .pledge-commitments { grid-template-columns: 1fr 1fr; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .project-preview { grid-template-columns: 1fr; }
+  .project-preview-right { grid-template-columns: repeat(4, 1fr); min-height: 160px; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .project-showcase { margin: 0 32px; }
+}
 
-
-#opening{background:var(--night)}
-.og{display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:center}
-.ov{height:500px;background:var(--night3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
-.ov::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(201,168,76,.09),transparent 60%)}
-.oc{position:absolute;width:22px;height:22px;border-color:var(--gold);border-style:solid;opacity:.35}
-.oc.tl{top:14px;left:14px;border-width:1px 0 0 1px}
-.oc.tr{top:14px;right:14px;border-width:1px 1px 0 0}
-.oc.bl{bottom:14px;left:14px;border-width:0 0 1px 1px}
-.oc.br{bottom:14px;right:14px;border-width:0 1px 1px 0}
-.oq{font-family:var(--serif);font-size:clamp(22px,2.8vw,34px);font-weight:400;font-style:italic;color:var(--cream);line-height:1.3;margin-bottom:24px;position:relative;z-index:1;padding:44px;text-align:center}
-.oq em{color:var(--gold2);font-style:normal}
-.oa{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,.22);position:relative;z-index:1}
-.note-box{margin-top:36px;padding:24px 28px;border:1px solid var(--border);background:var(--gold-faint)}
-.note-box p{font-size:13px;line-height:1.8;color:rgba(245,240,232,.42)}
-
-
-#why{background:var(--night2)}
-.wg{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:68px;background:var(--border);border:1px solid var(--border)}
-.wc{background:var(--night2);padding:46px 42px;position:relative;overflow:hidden;transition:background .3s}
-.wc:hover{background:var(--night3)}
-.wc::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .5s}
-.wc:hover::after{transform:scaleX(1)}
-.wn{font-family:var(--serif);font-size:68px;font-weight:400;color:rgba(201,168,76,.07);line-height:1;margin-bottom:20px;letter-spacing:-.04em}
-.wc h3{font-family:var(--serif);font-size:21px;font-weight:400;color:var(--cream);margin-bottom:12px;letter-spacing:-.01em}
-.wc p{font-size:13.5px;line-height:1.85;color:rgba(245,240,232,.36);font-weight:300}
-
-
-#build{background:var(--night)}
-.bheader{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:end;margin-bottom:72px}
-.bl{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
-.bi{background:var(--night);padding:34px 30px;transition:background .3s}
-.bi:hover{background:var(--night3)}
-.bi-ico{font-size:24px;margin-bottom:16px;display:block}
-.bi h4{font-family:var(--serif);font-size:17px;font-weight:400;color:var(--cream);margin-bottom:10px}
-.bi p{font-size:12.5px;line-height:1.75;color:rgba(245,240,232,.32);font-weight:300}
-
-#scope{background:var(--night2)}
-.srows{margin-top:60px}
-.srow{display:grid;grid-template-columns:180px 1fr 1fr;gap:44px;align-items:start;padding:38px 0;border-bottom:1px solid var(--border)}
-.srow:first-child{border-top:1px solid var(--border)}
-.snum{font-family:var(--serif);font-size:13px;font-style:italic;color:var(--gold);opacity:.65;padding-top:2px}
-.srow h3{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--cream);margin-bottom:10px}
-.srow p{font-size:13px;line-height:1.8;color:rgba(245,240,232,.36)}
-.stags{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-.stag{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,.2);padding:4px 11px}
-
-
-#promise{background:var(--night)}
-.pcenter{text-align:center;max-width:760px;margin:0 auto}
-.pcards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:68px}
-.pcard{border:1px solid var(--border);padding:34px 28px;background:var(--gold-faint)}
-.pcard h4{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--cream);margin-bottom:10px}
-.pcard p{font-size:13px;line-height:1.8;color:rgba(245,240,232,.35)}
-.pcard-ico{font-size:26px;margin-bottom:18px;display:block}
-
-
-#first{padding:0;border-top:1px solid var(--border)}
-.fi{background:linear-gradient(140deg,#171108 0%,#201508 45%,#0d0c0a 100%);padding:140px 60px;position:relative;overflow:hidden;text-align:center}
-.fi-orb{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(201,168,76,.07) 0%,transparent 65%);pointer-events:none}
-.fi-inner{position:relative;z-index:1;max-width:860px;margin:0 auto}
-.fi-tag{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:44px;border:1px solid rgba(201,168,76,.2);padding:8px 20px}
-.fi-title{font-family:var(--serif);font-size:clamp(50px,8vw,112px);font-weight:400;line-height:.9;letter-spacing:-.03em;color:var(--cream);margin-bottom:16px}
-.fi-title em{font-style:italic;color:var(--gold2);display:block}
-.fi-div{width:1px;height:56px;background:linear-gradient(to bottom,var(--gold),transparent);margin:38px auto}
-.fi-stmt{max-width:660px;margin:0 auto 56px;font-family:var(--serif);font-size:clamp(18px,2.2vw,25px);font-weight:400;font-style:italic;color:rgba(245,240,232,.65);line-height:1.6}
-.fi-stmt em{color:var(--gold2);font-style:normal}
-.fi-box{max-width:700px;margin:0 auto;border:1px solid rgba(201,168,76,.16);background:rgba(201,168,76,.038);padding:52px;position:relative}
-.fi-box::before,.fi-box::after{content:'✦';position:absolute;font-size:9px;color:var(--gold);opacity:.35}
-.fi-box::before{top:14px;left:18px}
-.fi-box::after{bottom:14px;right:18px}
-.fi-box p{font-size:clamp(14px,1.5vw,17px);line-height:1.95;color:rgba(245,240,232,.6);font-weight:300}
-.fi-box p strong{color:var(--cream);font-weight:400}
-.fi-sig{margin-top:36px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(245,240,232,.18)}
-
-
-#about{background:var(--night2)}
-.abg{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-.ab-card{border:1px solid var(--border);padding:42px;background:var(--night)}
-.ab-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:26px;display:flex;align-items:center;gap:10px}
-.ab-label::before{content:'';width:18px;height:1px;background:var(--gold);opacity:.55}
-.stacks{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.stk{font-size:11px;color:rgba(245,240,232,.42);border:1px solid rgba(245,240,232,.07);padding:5px 13px}
-.lnk{color:var(--gold);font-family:var(--serif);font-size:17px;font-style:italic;text-decoration:none;transition:color .2s;display:inline-block;margin-top:4px}
-.lnk:hover{color:var(--gold2)}
-.checks{display:flex;flex-direction:column;gap:13px;margin-top:12px}
-.check{display:flex;gap:11px;align-items:flex-start}
-.check span:first-child{color:var(--gold);font-size:9px;margin-top:3px;flex-shrink:0}
-.check p{font-size:13px;color:rgba(245,240,232,.4);line-height:1.7}
-
-
-#cta{background:var(--night);text-align:center;padding:140px 0}
-.cti{max-width:700px;margin:0 auto;padding:0 40px}
-.ctitle{font-family:var(--serif);font-size:clamp(50px,7.5vw,98px);font-weight:400;line-height:.9;letter-spacing:-.03em;color:var(--cream);margin-bottom:30px}
-.ctitle em{font-style:italic;color:var(--gold2)}
-.csub{font-size:15px;line-height:1.9;color:rgba(245,240,232,.35);margin-bottom:52px;font-weight:300}
-.clinks{display:flex;align-items:center;justify-content:center;gap:28px;margin-top:44px;flex-wrap:wrap}
-.clinks a{font-size:12px;color:rgba(245,240,232,.3);text-decoration:none;letter-spacing:.06em;transition:color .2s}
-.clinks a:hover{color:var(--gold)}
-.csep{width:1px;height:14px;background:rgba(245,240,232,.1)}
-
-footer{padding:36px 60px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
-.fl{font-family:var(--serif);font-size:20px;color:var(--cream)}
-.fl b{color:var(--gold);font-weight:400}
-footer p{font-size:10px;letter-spacing:.07em;color:rgba(245,240,232,.18)}
-
-
-.r{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
-.r.d1{transition-delay:.09s}.r.d2{transition-delay:.18s}.r.d3{transition-delay:.27s}
-.r.vis{opacity:1;transform:none}
-
-@keyframes up{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-
-@media(max-width:860px){
-  nav{padding:18px 22px}.si{padding:0 22px}
-  .og,.bheader,.abg{grid-template-columns:1fr}
-  .ov{height:260px}.wg,.bl,.pcards{grid-template-columns:1fr}
-  .srow{grid-template-columns:1fr}.snum{display:none}
-  .fi{padding:100px 22px}.fi-box{padding:34px 24px}
-  footer{flex-direction:column;text-align:center;padding:28px 22px}
-  .clinks{flex-direction:column;gap:14px}.csep{display:none}
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .container { padding: 0 20px; }
+  section { padding: 72px 0; }
+  #hero { padding: 100px 20px 60px; }
+  .hero-pitch-box { padding: 24px 20px; }
+  .hero-pitch-text { font-size: 15px; }
+  .pledge-commitments { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
+  .why-cards { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .team-right { grid-template-columns: 1fr 1fr; }
+  .project-showcase { margin: 0 20px; }
+  footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px 20px; }
 }
 </style>
 </head>
 <body>
 
-<div class="cd" id="dot"></div>
-<div class="cr" id="ring"></div>
-<div id="prog"></div>
-
 <nav>
-  <a href="#" class="nlogo">Aresei<b>.</b></a>
-  <span class="ntag">Proposal — Destination Madrid</span>
+  <a href="#" class="nav-logo">Are<span>sei</span></a>
+  <ul class="nav-links">
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#pledge">Our Promise</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#project">First Project</a></li>
+    <li><a href="#team">Team</a></li>
+  </ul>
+  <a href="#final-cta" class="nav-cta">Work With Us</a>
 </nav>
 
-
 <section id="hero">
-  <div class="hlines"></div>
-  <div class="horb"></div>
-  <div class="hero-inner">
-    <div class="hkick"><span class="hkick-l"></span>A Proposal for Your Madrid Experience Brand<span class="hkick-l"></span></div>
-    <h1 class="htitle">
-      <span class="out">Choose</span>
-      <em>Aresei.</em>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">IT Startup · Digital Agency · Est. 2025</div>
+
+    <h1 class="hero-headline">
+      We build digital<br>
+      experiences that <span class="accent">matter.</span>
     </h1>
-    <div class="hdiv"></div>
-    <p class="hsub">We are a student-founded IT company from Cebu, Philippines — and your project is exactly why we started.</p>
-    <div class="hbtns">
-      <a href="#first" class="bp">Read Our Promise</a>
-      <a href="#cta" class="bg">Contact Us</a>
+    <div class="hero-sub">Why Aresei is the partner you've been looking for.</div>
+
+    <div class="hero-pitch-box">
+      <p class="hero-pitch-text">
+        At <strong>Aresei</strong>, we are not just another IT company — we are a passionate startup built by creatives, engineers, and strategists who share a single obsession: <span class="highlight">crafting digital products that move people</span>. We were founded on the belief that technology, when wielded with vision and care, becomes something far greater than code — it becomes an experience, a story, a brand. 
+        <br><br>
+        We built a <strong>trilingual, immersive, conversion-driven website</strong> — rich with the soul of Spain, the elegance of luxury branding, and the intelligence of UX strategy — because <span class="gold">our first client deserves our absolute best work</span>. Full stop. At Aresei, we do not cut corners. We do not deliver "good enough." We deliver <strong>extraordinary</strong> — and we will never, ever let our clients down.
+      </p>
     </div>
-  </div>
-  <div class="hscroll">
-    <div class="strk"></div>
-    <span>Scroll</span>
+
+    <div class="hero-actions">
+      <a href="#pledge" class="btn-primary">✦ Our Promise to You</a>
+      <a href="#project" class="btn-ghost">See the Work →</a>
+    </div>
   </div>
 </section>
 
 
-<section id="opening" class="sec">
-  <div class="si">
-    <div class="og">
-      <div class="ov r">
-        <div class="oc tl"></div><div class="oc tr"></div>
-        <div class="oc bl"></div><div class="oc br"></div>
-        <div>
-          <p class="oq">"A luxury brand deserves a website that feels as <em>beautiful</em> as the experience itself."</p>
-          <p class="oa">— The Aresei Design Philosophy</p>
-        </div>
+<div id="stats">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-item reveal">
+        <div class="stat-n">100%</div>
+        <div class="stat-l">Client Satisfaction Goal</div>
       </div>
+      <div class="stat-item reveal rd1">
+        <div class="stat-n">3</div>
+        <div class="stat-l">Languages Supported</div>
+      </div>
+      <div class="stat-item reveal rd2">
+        <div class="stat-n">24h</div>
+        <div class="stat-l">Response Commitment</div>
+      </div>
+      <div class="stat-item reveal rd3">
+        <div class="stat-n">∞</div>
+        <div class="stat-l">Dedication to Our Clients</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<section id="why">
+  <div class="container">
+    <div class="why-grid">
       <div>
-        <div class="ey r">Who We Are</div>
-        <h2 class="dp r">We read<br/><em>every word</em><br/>of your brief.</h2>
-        <p class="ld r">Your project isn't just a website — it's the digital front door to a luxury experiential brand serving French travelers in Madrid. We understand that distinction completely.</p>
-        <p class="ld r d1" style="margin-top:18px">We are Aresei: lean, hungry, and obsessive about craft. No legacy overhead. No account managers between you and us. Every reason in the world to deliver something extraordinary.</p>
-        <div class="note-box r d2">
-          <p>We have read your full brief. We understand the FR primary / ES secondary audience split, the luxury positioning, the emotional storytelling requirement, and the Phase 2 architecture need. This proposal addresses every single point.</p>
+        <div class="sec-eyebrow reveal">Why choose Aresei</div>
+        <h2 class="sec-title reveal rd1">We think like <em>founders,</em><br>build like engineers,<br>design like artists.</h2>
+        <p class="sec-body reveal rd2" style="max-width:480px;">We are a lean, hungry startup — and that is our greatest advantage. Every project gets our full attention, our full team, and our full heart. No account managers diluting your vision. Just us, building something remarkable with you.</p>
+
+        <div class="why-cards">
+          <div class="why-card reveal rd1">
+            <span class="why-card-icon">⚡</span>
+            <div class="why-card-title">Startup Agility</div>
+            <div class="why-card-body">We move fast, iterate quickly, and adapt to your vision in real time — no bureaucracy, no bloat.</div>
+          </div>
+          <div class="why-card reveal rd2">
+            <span class="why-card-icon">🎨</span>
+            <div class="why-card-title">Design-First Thinking</div>
+            <div class="why-card-body">Every pixel is intentional. We build experiences that are beautiful, functional, and emotionally resonant.</div>
+          </div>
+          <div class="why-card reveal rd3">
+            <span class="why-card-icon">🌍</span>
+            <div class="why-card-title">Multilingual Expertise</div>
+            <div class="why-card-body">We natively support FR, ES and EN — not via translation plugins, but through thoughtful bilingual architecture.</div>
+          </div>
+          <div class="why-card reveal rd4">
+            <span class="why-card-icon">🔒</span>
+            <div class="why-card-title">Unwavering Loyalty</div>
+            <div class="why-card-body">Your success is our portfolio. We protect your investment and your reputation as if it were our own.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="why-visual reveal rd2">
+        <div class="why-screen">
+          <div class="why-screen-bar">
+            <div class="dot dot-r"></div>
+            <div class="dot dot-y"></div>
+            <div class="dot dot-g"></div>
+            <div class="screen-url">madridscreto.com</div>
+          </div>
+          <div class="why-screen-content">
+            <div class="mock-hero-title">MADRID</div>
+            <div class="mock-bar accent short"></div>
+            <div class="mock-bar shorter" style="margin-top:6px;"></div>
+            <div class="mock-grid">
+              <div class="mock-card-thumb">
+                <img src="https://images.unsplash.com/photo-1543785734-4b6e564642f8?w=300&q=70" alt="Gran Via">
+                <div class="mock-tag">Romance</div>
+              </div>
+              <div class="mock-card-thumb">
+                <img src="https://images.unsplash.com/photo-1499591934245-40b55745b905?w=300&q=70" alt="Retiro">
+                <div class="mock-tag">Culture</div>
+              </div>
+              <div class="mock-card-thumb">
+                <img src="https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=300&q=70" alt="Alhambra">
+                <div class="mock-tag">Exclusive</div>
+              </div>
+            </div>
+            <div style="margin-top:16px;display:flex;gap:8px;align-items:center;">
+              <div style="padding:8px 16px;background:rgba(212,168,83,0.15);border:1px solid rgba(212,168,83,0.3);font-size:10px;letter-spacing:0.1em;color:#D4A853;text-transform:uppercase;">FR</div>
+              <div style="padding:8px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);font-size:10px;letter-spacing:0.1em;color:rgba(240,237,232,0.4);text-transform:uppercase;">ES</div>
+              <div style="padding:8px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);font-size:10px;letter-spacing:0.1em;color:rgba(240,237,232,0.4);text-transform:uppercase;">EN</div>
+              <div style="margin-left:auto;padding:8px 20px;background:#D4A853;font-size:10px;letter-spacing:0.1em;color:#080C14;font-weight:600;text-transform:uppercase;">✦ Create</div>
+            </div>
+          </div>
+        </div>
+        <div class="why-badge">
+          <div class="why-badge-text">FIRST<br>CLIENT<br>★</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-
-<section id="why" class="sec">
-  <div class="si">
-    <div class="ey r">Why Choose Aresei</div>
-    <h2 class="dp r">Four reasons<br/>we are the<br/><em>right choice.</em></h2>
-    <div class="wg r d1">
-      <div class="wc">
-        <div class="wn">01</div>
-        <h3>Luxury Is a Design Language</h3>
-        <p>We've studied how premium experiential brands use restraint, whitespace, and emotion to position themselves digitally. We bring that exact sensibility to your site. No templates. No shortcuts. Intentional design at every layer.</p>
-      </div>
-      <div class="wc">
-        <div class="wn">02</div>
-        <h3>True Bilingual Architecture</h3>
-        <p>FR and ES as two distinct, thoughtfully crafted experiences — each with its own SEO metadata, hreflang tags, content tone, and URL structure. Your French audience speaks French. Your website will too. No auto-translation. Ever.</p>
-      </div>
-      <div class="wc">
-        <div class="wn">03</div>
-        <h3>Conversion Is Designed In</h3>
-        <p>WhatsApp floating button, emotionally placed CTAs, visual hierarchy that guides — we treat conversion as a design discipline from the first wireframe. Every scroll pulls your visitor closer to inquiry. That's not luck. That's architecture.</p>
-      </div>
-      <div class="wc">
-        <div class="wn">04</div>
-        <h3>Built to Scale</h3>
-        <p>Phase 2 retreats, new occasion pages, blog expansion — we architect for growth from day one. The component system, routing, CMS setup — all designed so adding new content later takes hours, not weeks, and never requires a rebuild.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section id="build" class="sec">
-  <div class="si">
-    <div class="bheader">
-      <div>
-        <div class="ey r">Scope of Work</div>
-        <h2 class="dp r">Everything<br/>your brief<br/><em>asked for.</em></h2>
-      </div>
-      <p class="ld r">We've mapped every requirement in your brief to a concrete deliverable. Here's what we build — and how we think about each piece of it.</p>
-    </div>
-    <ul class="bl r">
-      <li class="bi"><span class="bi-ico">🏛️</span><h4>Immersive Homepage</h4><p>Cinematic hero, emotional Madrid intro, experience grid, Google Reviews, multiple CTAs — all built around a clear user journey toward inquiry.</p></li>
-      <li class="bi"><span class="bi-ico">✍️</span><h4>Storytelling About Page</h4><p>Vision, philosophy, trust indicators, brand story — designed to build emotional credibility with your French visitors before they ever pick up the phone.</p></li>
-      <li class="bi"><span class="bi-ico">💍</span><h4>Occasion Landing Pages</h4><p>Proposals, bachelorettes, romantic getaways, team building — each page its own emotionally-tuned experience with storytelling, curated examples, and WhatsApp CTAs.</p></li>
-      <li class="bi"><span class="bi-ico">✨</span><h4>Experiences Grid</h4><p>Filterable by Romance, Celebration, Culture, Exclusive, Unique — designed to inspire aspiration, not a transactional catalogue. Editorial, not e-commerce.</p></li>
-      <li class="bi"><span class="bi-ico">📝</span><h4>Bilingual SEO Blog</h4><p>FR and ES blog architecture with proper schema markup, Open Graph tags, sitemap generation, and content templates ready for your editorial team.</p></li>
-      <li class="bi"><span class="bi-ico">📋</span><h4>High-Converting Contact</h4><p>All fields your brief specified — name, email, phone, event date, guests, occasion, atmosphere — in a form that feels premium, not clinical.</p></li>
-      <li class="bi"><span class="bi-ico">💬</span><h4>WhatsApp System</h4><p>Floating button, persistent across all pages, pre-filled message context per occasion type. The fastest path from visitor to conversation.</p></li>
-      <li class="bi"><span class="bi-ico">🌐</span><h4>FR / ES Without Compromise</h4><p>Two separate, human-crafted language versions. Culturally adapted tone, dedicated SEO per language, proper hreflang. Real bilingualism.</p></li>
-      <li class="bi"><span class="bi-ico">🔮</span><h4>Phase 2 Architecture</h4><p>Retreats, tarot, meditation, women's circles — routes exist, layout system accommodates them. When you're ready, launching Phase 2 takes an afternoon, not a rebuild.</p></li>
-    </ul>
-  </div>
-</section>
-
-
-<section id="scope" class="sec">
-  <div class="si">
-    <div class="ey r">UX Strategy Breakdown</div>
-    <h2 class="dp r">Strategy first.<br/><em>Visuals follow.</em></h2>
-    <div class="srows">
-      <div class="srow r">
-        <div class="snum">Phase I</div>
-        <div>
-          <h3>UX Architecture & Sitemap</h3>
-          <p>Full information architecture, page hierarchy, navigation structure, and dropdown system — designed around your 7 core pages with Phase 2 slots reserved. Every decision justified by user behavior principles.</p>
-          <div class="stags"><span class="stag">Sitemap</span><span class="stag">IA</span><span class="stag">Navigation</span></div>
-        </div>
-        <div>
-          <h3>User Journey Mapping</h3>
-          <p>Three journeys mapped: the French traveler planning a Madrid proposal, the bachelorette organizer, and the Spanish partner visiting for credibility. Each has its own entry point, emotional arc, and conversion goal.</p>
-        </div>
-      </div>
-      <div class="srow r">
-        <div class="snum">Phase II</div>
-        <div>
-          <h3>Visual Hierarchy & Wireframes</h3>
-          <p>High-fidelity wireframes for all primary pages. Visual hierarchy rules defined: what the eye sees first, second, third — and how each layer nudges toward the CTA. Annotated with UX rationale throughout.</p>
-          <div class="stags"><span class="stag">Wireframes</span><span class="stag">Hierarchy</span><span class="stag">Annotations</span></div>
-        </div>
-        <div>
-          <h3>Conversion Strategy</h3>
-          <p>CTA placement audit, micro-copy for every button, WhatsApp touchpoint map, form UX optimization, and trust signal placement — all documented in a conversion strategy guide you keep forever.</p>
-        </div>
-      </div>
-      <div class="srow r">
-        <div class="snum">Phase III</div>
-        <div>
-          <h3>Design System & Aesthetic Direction</h3>
-          <p>Color palette, typography pairing, spacing scale, imagery direction, animation principles — a luxury design language unique to your brand. Not a theme. A system.</p>
-          <div class="stags"><span class="stag">Design System</span><span class="stag">Motion</span><span class="stag">Brand</span></div>
-        </div>
-        <div>
-          <h3>Development & Delivery</h3>
-          <p>Full-stack Next.js build — fast, SEO-native, bilingual-ready, mobile-first. WCAG accessible, optimized Core Web Vitals. Delivered with documentation and a live handoff session.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section id="promise" class="sec">
-  <div class="si">
-    <div class="pcenter">
-      <div class="ey r" style="justify-content:center;margin-bottom:20px"><span style="width:0;display:inline-block"></span>Our Commitment</div>
-      <h2 class="dp r" style="font-size:clamp(44px,6.5vw,86px)">We will not<br/><em>let you down.</em></h2>
-      <p class="ld r" style="margin:0 auto;text-align:center">Six specific commitments we make to you — not marketing language. Actual promises.</p>
-    </div>
-    <div class="pcards r d1">
-      <div class="pcard"><span class="pcard-ico">🎯</span><h4>Absolute Best Work</h4><p>You are our first client. There is no engagement more important to us than this one. You get everything we have — not our average, our ceiling.</p></div>
-      <div class="pcard"><span class="pcard-ico">📞</span><h4>Direct Access Always</h4><p>You speak directly to the lead developer at all times. No account managers. No translation layer. The person making decisions picks up your call.</p></div>
-      <div class="pcard"><span class="pcard-ico">🔁</span><h4>Revisions Until Proud</h4><p>We iterate until you are genuinely proud to show this website to your clients in Paris. Not "satisfied." Proud. That is our standard.</p></div>
-      <div class="pcard"><span class="pcard-ico">⚡</span><h4>Hungry to Prove It</h4><p>We have everything to prove and zero reason to be complacent. That hunger is your competitive advantage as our client.</p></div>
-      <div class="pcard"><span class="pcard-ico">🛡️</span><h4>Post-Launch Support</h4><p>We don't disappear after delivery. Bug fixes, content updates, performance monitoring — included. Your success is our first proof of concept.</p></div>
-      <div class="pcard"><span class="pcard-ico">💸</span><h4>Premium Value, Not Price</h4><p>Student-run means no agency overhead. You get luxury-grade output at a price that reflects what you actually need — not someone's corner office.</p></div>
-    </div>
-  </div>
-</section>
-
-
-<section id="first">
-  <div class="fi">
-    <div class="fi-orb"></div>
-    <div class="fi-inner">
-      <div class="fi-tag r">✦ A Personal Note from Our Founder</div>
-      <h2 class="fi-title r">You would be<em>our first.</em></h2>
-      <div class="fi-div r"></div>
-      <p class="fi-stmt r">And we carry that with <em>enormous pride</em> — and enormous responsibility.</p>
-      <div class="fi-box r">
-        <p>
-          "Aresei was founded by 2nd year IT students at the University of San Carlos, Cebu, because we believed that <strong>great digital work doesn't require a massive agency</strong>. It requires people who care enough to obsess over every detail.
-          <br/><br/>
-          Your project — a luxury experiential brand in Madrid, built for French travelers who want magic — is exactly the kind of work that made us start this company. It demands emotional intelligence, aesthetic sensibility, strategic UX thinking, and technical precision all at once.
-          <br/><br/>
-          <strong>We have all of those things. And we have something most agencies don't: we need this as much as you need a great website.</strong>
-          <br/><br/>
-          Give us this opportunity. We will build you something that makes your competitors wonder who built it — and makes your clients in Paris reach for their phone the moment the page loads."
+<section id="pledge">
+  <div class="container">
+    <div class="pledge-wrap">
+      <div class="pledge-number">01</div>
+      <div class="pledge-inner">
+        <div class="pledge-icon reveal">🤝</div>
+        <h2 class="pledge-title reveal rd1">Our Unbreakable Promise</h2>
+        <div class="pledge-sub reveal rd2">We will never let our clients down. Ever.</div>
+        <p class="pledge-text reveal rd2">
+          MadridSecreto is <strong>our very first client project</strong> — and that means everything to us. In the startup world, your first client is not just a business relationship. They are your <span class="accent-word">proof of concept</span>, your <span class="accent-word">reference</span>, your <span class="accent-word">launchpad</span>. They believed in us before we had a track record. Before we had testimonials. Before we had a portfolio. They <strong>took a chance on Aresei</strong> — and we will honour that trust with every line of code, every pixel, every strategic decision we make on their behalf.
+          <br><br>
+          We are committed to being <strong>reachable, transparent, and tireless</strong>. When you message us at 11pm with a change request, we respond. When you need an update for tomorrow's meeting, we deliver. When you have a new idea mid-project, we don't charge extra — we <span class="gold-word">adapt, because your success is our success</span>. We are not a vendor. We are a <strong>partner</strong> — one who will grow alongside you, celebrate your wins, and fight through every challenge by your side. At Aresei, the day we let a client down is the day we stop existing.
         </p>
       </div>
-      <p class="fi-sig r">— Francis Niel Tamayo, Founder · Aresei · Cebu, Philippines</p>
+    </div>
+
+    <div class="pledge-commitments">
+      <div class="pledge-item reveal">
+        <div class="pledge-item-num">01</div>
+        <span class="pledge-item-icon">📞</span>
+        <div class="pledge-item-title">Always Reachable</div>
+        <div class="pledge-item-body">24-hour response time, guaranteed. WhatsApp, email, call — we are here. Your urgency is our urgency.</div>
+      </div>
+      <div class="pledge-item reveal rd1">
+        <div class="pledge-item-num">02</div>
+        <span class="pledge-item-icon">🔄</span>
+        <div class="pledge-item-title">Unlimited Revisions</div>
+        <div class="pledge-item-body">We iterate until it's perfect. No revision caps, no surprise fees. We don't stop until you are genuinely proud.</div>
+      </div>
+      <div class="pledge-item reveal rd2">
+        <div class="pledge-item-num">03</div>
+        <span class="pledge-item-icon">📈</span>
+        <div class="pledge-item-title">Long-Term Growth Partner</div>
+        <div class="pledge-item-body">We think beyond the launch. SEO, content updates, new features — we stay by your side as you scale.</div>
+      </div>
+      <div class="pledge-item reveal rd1">
+        <div class="pledge-item-num">04</div>
+        <span class="pledge-item-icon">🛡️</span>
+        <div class="pledge-item-title">Full Transparency</div>
+        <div class="pledge-item-body">No hidden costs, no black-box decisions. You own your code, your domain, your data. Always.</div>
+      </div>
+      <div class="pledge-item reveal rd2">
+        <div class="pledge-item-num">05</div>
+        <span class="pledge-item-icon">⚡</span>
+        <div class="pledge-item-title">Speed Without Compromise</div>
+        <div class="pledge-item-body">We deliver fast — but never at the expense of quality. Every deadline is a promise we intend to keep.</div>
+      </div>
+      <div class="pledge-item reveal rd3">
+        <div class="pledge-item-num">06</div>
+        <span class="pledge-item-icon">❤️</span>
+        <div class="pledge-item-title">We Actually Care</div>
+        <div class="pledge-item-body">This isn't corporate speak. We lose sleep over our clients' projects. Your brand matters to us personally.</div>
+      </div>
     </div>
   </div>
 </section>
 
 
-<section id="about" class="sec">
-  <div class="si">
-    <div class="abg">
+<section id="services">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:8px;">
       <div>
-        <div class="ey r">About Aresei</div>
-        <h2 class="dp r">Built lean.<br/><em>Thinking big.</em></h2>
-        <p class="ld r">A student-founded IT company with one belief: the best digital work comes from developers who genuinely care about the product they're building.</p>
-        <p class="ld r d1" style="margin-top:18px">Our founder has shipped 10+ projects — from e-commerce to AI-powered apps — all with the same obsessive attention to craft. We are small by choice. Our work is not.</p>
-        <div style="margin-top:34px" class="r d2">
-          <p style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Portfolio</p>
-          <a href="https://francis.aresei.store" target="_blank" class="lnk">francis.aresei.store ↗</a>
+        <div class="sec-eyebrow reveal">What we build</div>
+        <h2 class="sec-title reveal rd1">Full-stack digital<br><em>craftsmanship</em></h2>
+      </div>
+      <p class="sec-body reveal" style="max-width:340px;">From strategy to deployment, we handle every layer of your digital presence with precision and artistry.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-item reveal">
+        <div class="service-num">01</div>
+        <span class="service-icon">🌐</span>
+        <div class="service-title">Immersive Websites</div>
+        <div class="service-body">Luxury-grade, conversion-optimised websites built with custom code. No templates, no shortcuts — pure craft. Multilingual, mobile-first, SEO-ready.</div>
+      </div>
+      <div class="service-item reveal rd1">
+        <div class="service-num">02</div>
+        <span class="service-icon">📱</span>
+        <div class="service-title">UX / UI Design</div>
+        <div class="service-body">User journeys mapped with intention. Every screen, every interaction designed to guide visitors toward action — beautifully and effortlessly.</div>
+      </div>
+      <div class="service-item reveal rd2">
+        <div class="service-num">03</div>
+        <span class="service-icon">🔍</span>
+        <div class="service-title">SEO Strategy</div>
+        <div class="service-body">Multilingual SEO architecture built into the foundation. We don't bolt on SEO — we engineer it from day one, in every language you operate in.</div>
+      </div>
+      <div class="service-item reveal">
+        <div class="service-num">04</div>
+        <span class="service-icon">⚙️</span>
+        <div class="service-title">Web Applications</div>
+        <div class="service-body">Custom booking systems, CRM integrations, client portals and dashboards — we build the tools your business actually needs to operate at scale.</div>
+      </div>
+      <div class="service-item reveal rd1">
+        <div class="service-num">05</div>
+        <span class="service-icon">📊</span>
+        <div class="service-title">Brand & Identity</div>
+        <div class="service-body">Logo design, visual systems, brand guidelines — we shape how your business looks and feels across every touchpoint, online and offline.</div>
+      </div>
+      <div class="service-item reveal rd2">
+        <div class="service-num">06</div>
+        <span class="service-icon">🚀</span>
+        <div class="service-title">Growth & Maintenance</div>
+        <div class="service-body">Post-launch support, analytics, A/B testing, content updates and feature expansions. We are in it for the long run — not just the launch day.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="project">
+  <div class="container">
+    <div class="project-header">
+      <div class="sec-eyebrow reveal" style="justify-content:center;">Our First Client Project</div>
+      <h2 class="sec-title reveal rd1" style="text-align:center;">MadridSecreto — <em>Luxury Experience Agency</em></h2>
+      <p class="sec-body reveal rd2" style="max-width:580px;margin:16px auto 0;text-align:center;">A trilingual (FR / ES / EN) immersive website for a premium Madrid experience agency. Full UX architecture, multilingual setup, conversion strategy, and luxury visual direction — delivered with love as our founding project.</p>
+    </div>
+  </div>
+
+  <div class="project-showcase reveal rd1">
+    <div class="project-browser-bar">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <div class="project-url">madridscreto.com — Luxury Experience Agency · Madrid</div>
+    </div>
+    <div class="project-preview">
+      <div class="project-preview-left">
+        <div class="mock-nav">
+          <div class="mock-logo">MadridSecreto</div>
+          <div class="mock-links">
+            <div class="mock-link active"></div>
+            <div class="mock-link"></div>
+            <div class="mock-link"></div>
+            <div class="mock-link"></div>
+          </div>
+          <div style="display:flex;gap:4px;">
+            <div style="padding:3px 8px;border:1px solid rgba(212,168,83,0.4);font-size:9px;color:#D4A853;">FR</div>
+            <div style="padding:3px 8px;border:1px solid rgba(255,255,255,0.1);font-size:9px;color:rgba(240,237,232,0.3);">ES</div>
+            <div style="padding:3px 8px;border:1px solid rgba(255,255,255,0.1);font-size:9px;color:rgba(240,237,232,0.3);">EN</div>
+          </div>
         </div>
-        <div style="margin-top:14px" class="r d3">
-          <p style="font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Company</p>
-          <a href="https://aresei.store" target="_blank" class="lnk">aresei.store ↗</a>
+        <div style="font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#D4A853;margin-bottom:8px;">Luxury Experiences · Madrid</div>
+        <div class="mock-title-big">MADRID</div>
+        <div class="mock-sub">comme vous ne l'avez jamais vécu</div>
+        <div class="mock-btn">✦ Créer mon expérience</div>
+        <div style="display:flex;gap:6px;margin-top:20px;">
+          <div style="width:36px;height:3px;background:#D4A853;border-radius:2px;"></div>
+          <div style="width:20px;height:3px;background:rgba(255,255,255,0.15);border-radius:2px;"></div>
+          <div style="width:20px;height:3px;background:rgba(255,255,255,0.15);border-radius:2px;"></div>
         </div>
       </div>
-      <div class="r d1">
-        <div class="ab-card">
-          <div class="ab-label">Technical Stack for This Project</div>
-          <p style="font-size:13.5px;line-height:1.85;color:rgba(245,240,232,.38);margin-bottom:18px">Chosen specifically for your requirements — bilingual SEO, performance, scalability, and premium frontend experience.</p>
-          <div class="stacks">
-            <span class="stk">Next.js 14</span><span class="stk">React</span><span class="stk">TypeScript</span>
-            <span class="stk">Tailwind CSS</span><span class="stk">Framer Motion</span><span class="stk">next-intl (FR/ES)</span>
-            <span class="stk">Sanity CMS</span><span class="stk">WhatsApp API</span><span class="stk">Google Reviews API</span><span class="stk">Vercel</span>
+      <div class="project-preview-right">
+        <div class="project-thumb">
+          <img src="https://images.unsplash.com/photo-1543785734-4b6e564642f8?w=400&q=80" alt="Gran Via">
+          <div class="project-thumb-label">Gran Vía · Madrid</div>
+        </div>
+        <div class="project-thumb">
+          <img src="https://images.unsplash.com/photo-1499591934245-40b55745b905?w=400&q=80" alt="Retiro">
+          <div class="project-thumb-label">Parque del Retiro</div>
+        </div>
+        <div class="project-thumb">
+          <img src="https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?w=400&q=80" alt="Alhambra">
+          <div class="project-thumb-label">Alhambra · Granada</div>
+        </div>
+        <div class="project-thumb">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80" alt="Sagrada Familia">
+          <div class="project-thumb-label">Sagrada Família</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:10px;padding:28px 60px;background:rgba(91,110,245,0.04);border:1px solid rgba(91,110,245,0.1);border-top:none;margin:0 60px;">
+    <span style="padding:6px 16px;background:rgba(91,110,245,0.08);border:1px solid rgba(91,110,245,0.2);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);">✓ Trilingual FR/ES/EN</span>
+    <span style="padding:6px 16px;background:rgba(91,110,245,0.08);border:1px solid rgba(91,110,245,0.2);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);">✓ Immersive Foxico-Style Hero</span>
+    <span style="padding:6px 16px;background:rgba(91,110,245,0.08);border:1px solid rgba(91,110,245,0.2);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);">✓ Spanish Landmarks Gallery</span>
+    <span style="padding:6px 16px;background:rgba(91,110,245,0.08);border:1px solid rgba(91,110,245,0.2);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);">✓ Floating WhatsApp Button</span>
+    <span style="padding:6px 16px;background:rgba(91,110,245,0.08);border:1px solid rgba(91,110,245,0.2);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);">✓ Experience Filter Grid</span>
+    <span style="padding:6px 16px;background:rgba(91,110,245,0.08);border:1px solid rgba(91,110,245,0.2);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);">✓ Conversion-Optimised Forms</span>
+    <span style="padding:6px 16px;background:rgba(91,110,245,0.08);border:1px solid rgba(91,110,245,0.2);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);">✓ Mobile-First Responsive</span>
+    <span style="padding:6px 16px;background:rgba(91,110,245,0.08);border:1px solid rgba(91,110,245,0.2);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent2);">✓ Phase 2 Architecture Ready</span>
+    <span style="padding:6px 16px;background:rgba(212,168,83,0.1);border:1px solid rgba(212,168,83,0.3);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);">★ FIRST CLIENT PROJECT</span>
+  </div>
+</section>
+
+
+<section id="team">
+  <div class="container">
+    <div class="team-grid">
+      <div>
+        <div class="sec-eyebrow reveal">The Team</div>
+        <h2 class="sec-title reveal rd1">Small team.<br><em>Enormous</em> ambition.</h2>
+        <p class="sec-body reveal rd2" style="max-width:440px;margin-bottom:32px;">We are a tight-knit group of specialists who chose to build something together from scratch — because we believed we could do it better. Every one of us is invested in your success.</p>
+
+        <div class="values-list">
+          <div class="value-row reveal rd1">
+            <div class="value-bullet">🔥</div>
+            <div class="value-text">
+              <strong>Passion over process</strong>
+              <span>We're driven by genuine excitement for what we build — not just KPIs and timesheets.</span>
+            </div>
           </div>
-          <div style="margin-top:34px;padding-top:26px;border-top:1px solid var(--border)">
-            <div class="ab-label">Key Strengths for Your Brief</div>
-            <div class="checks" style="margin-top:10px">
-              <div class="check"><span>✦</span><p>Luxury aesthetic sensibility & emotional design thinking</p></div>
-              <div class="check"><span>✦</span><p>True multilingual architecture — not auto-translation</p></div>
-              <div class="check"><span>✦</span><p>Conversion-focused UX strategy from wireframe to launch</p></div>
-              <div class="check"><span>✦</span><p>Mobile-first, performance-optimized, Core Web Vitals ready</p></div>
-              <div class="check"><span>✦</span><p>Scalable architecture built for Phase 2 from day one</p></div>
+          <div class="value-row reveal rd2">
+            <div class="value-bullet">🎯</div>
+            <div class="value-text">
+              <strong>Results over promises</strong>
+              <span>We let our work speak. Every deliverable is crafted to exceed what was asked for.</span>
+            </div>
+          </div>
+          <div class="value-row reveal rd3">
+            <div class="value-bullet">🌱</div>
+            <div class="value-text">
+              <strong>Growth mindset</strong>
+              <span>We are always learning, always improving — and we bring that energy to every client's project.</span>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="team-right">
+        <div class="team-card reveal">
+          <div class="team-avatar">👨‍💻</div>
+          <div class="team-name">Dev Lead</div>
+          <div class="team-role">Full-Stack Engineer</div>
+        </div>
+        <div class="team-card reveal rd1">
+          <div class="team-avatar">🎨</div>
+          <div class="team-name">Design Lead</div>
+          <div class="team-role">UX / UI Designer</div>
+        </div>
+        <div class="team-card reveal rd2">
+          <div class="team-avatar">📊</div>
+          <div class="team-name">Strategy Lead</div>
+          <div class="team-role">Digital Strategist</div>
+        </div>
+        <div class="team-card reveal rd3">
+          <div class="team-avatar">🌍</div>
+          <div class="team-name">Content Lead</div>
+          <div class="team-role">Multilingual Copywriter</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="cta">
-  <div class="cti">
-    <div class="ey r" style="justify-content:center;margin-bottom:26px"><span style="width:0;display:inline-block"></span>Let's Begin</div>
-    <h2 class="ctitle r">Let's build<br/>something<br/><em>unforgettable.</em></h2>
-    <p class="csub r">We are ready to start immediately. Reach out and let's discuss your vision for Destination Madrid — in French, in Spanish, and at the standard of luxury your clients deserve.</p>
-    <div class="r d1"><a href="mailto:francistamayo55@gmail.com" class="bp">francistamayo55@gmail.com</a></div>
-    <div class="clinks r d2">
-      <a href="https://aresei.store" target="_blank">aresei.store ↗</a>
-      <div class="csep"></div>
-      <a href="https://tamayofrancisniel.dcism.org" target="_blank">Portfolio ↗</a>
-      <div class="csep"></div>
-      <a href="https://www.upwork.com/freelancers/~01ad460e180e8ef575" target="_blank">Upwork ↗</a>
+
+<section id="final-cta">
+  <div class="container">
+    <div class="final-cta-inner">
+      <div class="final-cta-label reveal">Ready to build something great?</div>
+      <h2 class="final-cta-title reveal rd1">Choose Aresei.<br><em>We won't let you down.</em></h2>
+      <p class="final-cta-sub reveal rd2">You deserve a partner who treats your project like their own — one who is reachable, honest, and relentlessly committed to your success. That's Aresei.</p>
+      <div class="final-cta-btns reveal rd2">
+        <a href="mailto:francistamayo55@gmail.com" class="btn-primary">✦ Start a Project</a>
+        <a href="#project" class="btn-ghost">View Our Work →</a>
+      </div>
+
+      <div class="contact-strip reveal rd3">
+        <div class="contact-item">
+          <div class="contact-item-icon">✉️</div>
+          <div class="contact-item-info">
+            <strong>Email</strong>
+            <span>francistamayo55@gmail.com</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📱</div>
+          <div class="contact-item-info">
+            <strong>Founder of Aresei</strong>
+            <span>francis.aresei.store</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">⚡</div>
+          <div class="contact-item-info">
+            <strong>Response Time</strong>
+            <span>Under 24 hours</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div class="contact-item-info">
+            <strong>Where we work</strong>
+            <span>Everywhere, remotely.</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="fl">Aresei<b>.</b></div>
-  <p>Cebu, Philippines · Founded 2025 · University of San Carlos</p>
-  <p>© 2025 Aresei. All rights reserved.</p>
+  <span class="footer-logo">Are<span>sei</span></span>
+  <span class="footer-copy">© 2025 Aresei IT Startup · Built with relentless ambition · First client: MadridSecreto ★</span>
 </footer>
 
 <script>
-const dot=document.getElementById('dot'),ring=document.getElementById('ring')
-let mx=0,my=0,rx=0,ry=0
-window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'})
-;(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})()
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>ring.classList.add('x'))
-  el.addEventListener('mouseleave',()=>ring.classList.remove('x'))
-})
-const bar=document.getElementById('prog')
-window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;bar.style.width=(window.scrollY/h*100)+'%'},{passive:true})
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:.08})
-document.querySelectorAll('.r').forEach(el=>obs.observe(el))
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+function animateCounters() {
+  document.querySelectorAll('.stat-n').forEach(el => {
+    const text = el.textContent;
+    if (text === '∞' || text.includes('★')) return;
+    const num = parseFloat(text);
+    const suffix = text.replace(/[\d.]/g, '');
+    if (isNaN(num)) return;
+    let start = 0;
+    const duration = 1800;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * num) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+}
+
+const statsObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) { animateCounters(); statsObs.disconnect(); }
+}, { threshold: 0.5 });
+
+const statsEl = document.getElementById('stats');
+if (statsEl) statsObs.observe(statsEl);
 </script>
 </body>
 </html>
